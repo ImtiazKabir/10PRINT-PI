@@ -6,15 +6,40 @@ void draw(
   SDL_Renderer * renderer,
   int const ROW,
   int const COL,
-  int const * const * const GRID
+  int const * const * const GRID,
+  int const WIDTH,
+  int const HEIGHT,
+  SDL_Texture * zero,
+  SDL_Texture * one,
+  int const INDEX,
+  bool const NOLOOP
 ) {
-  if (SDL_SetRenderDrawColor(renderer, 55, 55, 55, 255) == -1) {
-    MEOW_Error("Setting the background color with SDL_SetRenderDrawColor");
-  }
-  if (SDL_RenderClear(renderer) == -1) {
-    MEOW_Error("Clearing the window for background with SDL_RenderClear");
+  if (NOLOOP == true) return;
+
+  int const I = INDEX / COL;
+  int const J = INDEX % COL;
+  SDL_Rect const cell = {
+    .w = WIDTH/COL,
+    .h = HEIGHT/ROW,
+    .x = J * cell.w,
+    .y = I * cell.h
+  };
+  SDL_Texture *state = GRID[I][J]? one:zero;
+  if (SDL_RenderCopy(renderer, state, NULL, &cell) < 0) {
+    MEOW_Error("Drawing state with SDL_RenderCopy");
   }
 }
 
 
-void update(void) {}
+void update(
+  int * const INDEX_P,
+  int const ROW,
+  int const COL,
+  bool * const NOLOOP_P
+) {
+  if (*NOLOOP_P == true) return;
+  *INDEX_P += 1;
+  if (*INDEX_P == ROW * COL) {
+    *NOLOOP_P = true;
+  }
+}

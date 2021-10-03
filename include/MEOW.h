@@ -14,8 +14,10 @@ void MEOW_Init(
 /* sketch.c */
 void MEOW_Repeat(
   SDL_Renderer *renderer,
-  const int WIDTH,
-  const int HEIGHT,
+  int const WIDTH,
+  int const HEIGHT,
+  int const ROW,
+  int const COL,
   const int FPS
 );
 

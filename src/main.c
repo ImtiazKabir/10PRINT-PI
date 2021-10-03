@@ -10,8 +10,10 @@ int main(void) {
 
   MEOW_Init(&window, &renderer, WIDTH, HEIGHT, TITLE);
 
+  int const ROW = 40;
+  int const COL = WIDTH/(HEIGHT/ROW);
   int const FPS = 60;
-  MEOW_Repeat(renderer, WIDTH, HEIGHT, FPS);
+  MEOW_Repeat(renderer, WIDTH, HEIGHT, ROW, COL, FPS);
 
   MEOW_Destroy(window, renderer);
   return 0;

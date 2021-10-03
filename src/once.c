@@ -1,13 +1,67 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 
 #include "sketch.h"
 
+void creaeteGrid(
+  int const ROW,
+  int const COL,
+  int * * * const GRID_P
+);
+
+void createTexture(
+  SDL_Renderer * renderer,
+  SDL_Texture ** const TEXTURE_P,
+  char const * const DIR
+);
+
 void setup(
+  int const ROW,
+  int const COL,
+  int * * * const GRID_P,
+  SDL_Renderer * renderer,
+  SDL_Texture * * const ZERO_P,
+  SDL_Texture * * const ONE_P
+) {
+
+  creaeteGrid(ROW, COL, GRID_P);
+  createTexture(renderer, ZERO_P, "assets/zero.png");
+  createTexture(renderer, ONE_P, "assets/one.png");
+
+  /* Draw the one time background */
+  if (SDL_SetRenderDrawColor(renderer, 23, 23, 23, 255) == -1) {
+    MEOW_Error("Setting the background color with SDL_SetRenderDrawColor");
+  }
+  if (SDL_RenderClear(renderer) == -1) {
+    MEOW_Error("Clearing the window for background with SDL_RenderClear");
+  }
+}
+
+void clean_up(
+  int const ROW,
+  int * * grid,
+  SDL_Texture * zero,
+  SDL_Texture * one
+) {
+  for (int i = 0; i < ROW; ++i) {
+    free(grid[i]);
+  }
+  free(grid);
+
+  /* clean up textures */
+  SDL_DestroyTexture(zero);
+  SDL_DestroyTexture(one);
+}
+
+
+
+void creaeteGrid(
   int const ROW,
   int const COL,
   int * * * const GRID_P
 ) {
+
   *GRID_P = calloc(ROW, sizeof **GRID_P);
   if (*GRID_P == NULL) {
     fprintf(stderr, "Failed to allocate memory for grid pointer");
@@ -23,13 +77,18 @@ void setup(
   }
 }
 
-void clean_up(
-  int const ROW,
-  int * * grid
+void createTexture(
+  SDL_Renderer *renderer,
+  SDL_Texture ** const TEXTURE_P,
+  char const * const DIR
 ) {
-  for (int i = 0; i < ROW; ++i) {
-    free(grid[i]);
-  }
-  free(grid);
-}
 
+  char * path = MEOW_GetPath(DIR);
+  SDL_Surface * surface = IMG_Load(path);
+  if (surface == NULL) {
+    MEOW_Error("Creating surface for life with IMG_Load");
+  }
+  *TEXTURE_P= SDL_CreateTextureFromSurface(renderer, surface);
+  free(path);
+  SDL_FreeSurface(surface);
+}

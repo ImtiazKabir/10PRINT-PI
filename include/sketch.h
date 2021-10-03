@@ -22,20 +22,39 @@ bool event_handler(void);
 void setup(
   int const ROW,
   int const COL,
-  int * * * const GRID_P
+  int * * * const GRID_P,
+
+  SDL_Renderer * renderer,
+  SDL_Texture * * const ZERO_P,
+  SDL_Texture * * ONE_P
 );
+
 void clean_up(
   int const ROW,
-  int * * grid
+  int * * grid,
+  SDL_Texture * zero,
+  SDL_Texture * one
 );
 
 /* loop.c */
-void update(void);
+void update(
+  int * const INDEX_P,
+  int const ROW,
+  int const COL,
+  bool * const NOLOOP_P
+);
+
 void draw(
   SDL_Renderer * renderer,
   int const ROW,
   int const COL,
-  int const * const * const GRID
+  int const * const * const GRID,
+  int const WIDTH,
+  int const HEIGHT,
+  SDL_Texture * zero,
+  SDL_Texture * one,
+  int const INDEX,
+  bool const NOLOOP
 );
 
 #endif /* LIB_MEOW_SKETCH_H */
