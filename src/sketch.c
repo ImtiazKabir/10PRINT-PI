@@ -86,13 +86,6 @@ void main_loop(void *v_param) {
   }
 
   /* update and draw */
-  update(
-    &param->index,
-    param->ROW,
-    param->COL,
-    &param->noLoop
-  );
-
   draw(
     param->renderer,
     param->ROW,
@@ -104,6 +97,13 @@ void main_loop(void *v_param) {
     param->one,
     param->index,
     param->noLoop
+  );
+
+  update(
+    &param->index,
+    param->ROW,
+    param->COL,
+    &param->noLoop
   );
   SDL_Delay(1000 / (unsigned)param->FPS);
   SDL_RenderPresent(param->renderer);

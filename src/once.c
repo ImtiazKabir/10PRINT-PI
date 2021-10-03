@@ -28,14 +28,6 @@ void setup(
   creaeteGrid(ROW, COL, GRID_P);
   createTexture(renderer, ZERO_P, "assets/zero.png");
   createTexture(renderer, ONE_P, "assets/one.png");
-
-  /* Draw the one time background */
-  if (SDL_SetRenderDrawColor(renderer, 23, 23, 23, 255) == -1) {
-    MEOW_Error("Setting the background color with SDL_SetRenderDrawColor");
-  }
-  if (SDL_RenderClear(renderer) == -1) {
-    MEOW_Error("Clearing the window for background with SDL_RenderClear");
-  }
 }
 
 void clean_up(
