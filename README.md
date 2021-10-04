@@ -1,3 +1,5 @@
-# EMTPY SKETCH
-This is an empty sketch using SDL2 and EMSCRIPTEN\
-See an example project [Classic Snake Game](https://github.com/ImtiazKabir/Yet-Another-Snake-Game)
+# 10Print π with Emojis
+This program uses binary representation to represent π\
+π in base 2 = `11.00100100001111110110101010.....`\
+Here I decided to visualize π through 10PRINT.
+This catalogs the first 1,000 bits (after the radix point) of π in base 2

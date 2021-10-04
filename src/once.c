@@ -54,6 +54,14 @@ void creaeteGrid(
   int * * * const GRID_P
 ) {
 
+  char * path = MEOW_GetPath("assets/pi.txt");
+  FILE * const PIFILE = fopen(path, "r");
+  if (PIFILE == NULL) {
+    perror(NULL);
+    fprintf(stderr, "Could not find %s\n", path);
+  }
+  free(path);
+
   *GRID_P = calloc(ROW, sizeof **GRID_P);
   if (*GRID_P == NULL) {
     fprintf(stderr, "Failed to allocate memory for grid pointer");
@@ -64,9 +72,11 @@ void creaeteGrid(
       fprintf(stderr, "Failed to allocate memory for grid rows");
     }
     for (int j = 0; j < COL; ++j) {
-      (*GRID_P)[i][j] = rand() % 2;
+      (*GRID_P)[i][j] = fgetc(PIFILE) - '0';
     }
   }
+
+  fclose(PIFILE);
 }
 
 void createTexture(

@@ -2,21 +2,37 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
+  <h3>
+    This is the first 1,000 bits
+    (<i>After</i> the radix point) of π (in binary) <br>
+    Here a hot face emoji indicates a 0
+    and a cold face emoji indicates a 1 <br>
+    [π in base 2 = 11.<u>00100100001111110110101010.....</u>]
+  </h3>
+  This is written in C btw 😎
 
-    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+  <canvas
+    id="canvas"
+    oncontextmenu="event.preventDefault()"
+    style="display: block;"
+  ></canvas>
 
-    <script type='text/javascript'>
-        var Module = {
-            canvas: (function() { return document.getElementById('canvas'); })()
-        };
-    </script>
+  <script type='text/javascript'>
+    var Module = {
+      canvas: (
+        function() {
+          return document.getElementById('canvas');
+        }
+      ) ()
+    };
+  </script>
 
-    <script src="index.js"></script>
+  <script src="index.js"></script>
 
 </body>
 

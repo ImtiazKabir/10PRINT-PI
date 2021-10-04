@@ -16,7 +16,7 @@ void draw(
 ) {
   if (NOLOOP == true) return;
 
-  if (SDL_SetRenderDrawColor(renderer, 23, 23, 23, 255) == -1) {
+  if (SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255) == -1) {
     MEOW_Error("Setting the background color with SDL_SetRenderDrawColor");
   }
   if (SDL_RenderClear(renderer) == -1) {
@@ -46,9 +46,13 @@ void update(
   int const COL,
   bool * const NOLOOP_P
 ) {
-  if (*NOLOOP_P == true) return;
-  *INDEX_P += 1;
+  if (*NOLOOP_P == true) {
+    return;
+  }
   if (*INDEX_P == ROW * COL) {
     *NOLOOP_P = true;
+  }
+  else {
+    *INDEX_P += 1;
   }
 }
